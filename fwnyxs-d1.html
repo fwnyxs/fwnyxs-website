@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FWNYXS — Independent Music / Creative Studio</title>
+<meta name="description" content="FWNYXS is an independent music label and creative studio developing new sounds and discovering emerging artists.">
+<meta name="theme-color" content="#efe9df">
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FWNYXS">
+<meta property="og:title" content="FWNYXS — Independent Music / Creative Studio">
+<meta property="og:description" content="FWNYXS is an independent music label and creative studio developing new sounds and discovering emerging artists.">
+<meta property="og:url" content="https://fwnyxs.my">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FWNYXS — Independent Music / Creative Studio">
+<meta name="twitter:description" content="FWNYXS is an independent music label and creative studio developing new sounds and discovering emerging artists.">
+<meta property="og:image" content="og-image.png">
+<meta name="twitter:image" content="og-image.png">
+<!-- og-image.png / favicon.png are included alongside this file — keep them in the same folder
+     when you deploy, or update these paths to wherever they're hosted. -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "FWNYXS",
+  "url": "https://fwnyxs.my",
+  "description": "Independent music label and creative studio developing new sounds and discovering emerging artists.",
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Malaysia"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#efe9df;
+    --bg-alt:#e6dcc8;
+    --panel:#f7f3ea;
+    --line: rgba(28,26,22,0.16);
+    --line-strong: rgba(28,26,22,0.34);
+    --fg:#1c1a16;
+    --muted:#6b6459;
+    --accent:#c8342a;
+    --accent-dim: rgba(200,52,42,0.12);
+    --accent-glow: rgba(200,52,42,0.28);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--fg);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--accent); color:var(--bg); }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:6px; height:6px;
+    background:var(--accent);
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .eyebrow .dur{
+    margin-left:auto; padding-left:16px; color:var(--muted); opacity:0.6;
+    font-variant-numeric:tabular-nums;
+  }
+  .band-head .eyebrow{ padding-right:2px; }
+
+  /* ---------- vinyl disc (hero motif) ---------- */
+  .disc{
+    position:absolute; top:50%; right:-8%; transform:translateY(-50%);
+    width:min(60vw, 640px); height:min(60vw, 640px);
+    pointer-events:none; z-index:0; opacity:0.5;
+    animation:spinDisc 34s linear infinite;
+  }
+  body.paused .disc{ animation-play-state:paused; }
+  .disc svg{ width:100%; height:100%; }
+  @keyframes spinDisc{ to{ transform:translateY(-50%) rotate(360deg); } }
+  @media (max-width:900px){ .disc{ opacity:0.28; right:-24%; } }
+
+  h1,h2,h3,h4{ font-family:'Inter', sans-serif; font-weight:600; letter-spacing:-0.01em; line-height:1.08; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  /* ---------- ambient background ---------- */
+  .noise-veil{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:radial-gradient(rgba(28,26,22,0.05) 1px, transparent 1px);
+    background-size:3px 3px;
+    opacity:0.6;
+  }
+  .glow-field{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .glow{
+    position:absolute; border-radius:50%;
+    background-image:radial-gradient(rgba(28,26,22,0.35) 1.4px, transparent 1.4px);
+    background-size:9px 9px;
+    opacity:0.14; will-change:transform;
+  }
+  .glow-a{ width:560px; height:560px; top:-180px; left:-120px; animation:drift1 30s ease-in-out infinite; }
+  .glow-b{ width:420px; height:420px; opacity:0.1; bottom:-140px; right:-80px; animation:drift2 34s ease-in-out infinite; }
+  @keyframes drift1{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(60px,80px) scale(1.15); }
+  }
+  @keyframes drift2{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(-50px,-40px) scale(1.1); }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 5vw;
+    backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(239,233,223,0.9), transparent);
+  }
+  .logo{ font-family:'Inter', sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; }
+  .logo sup{ font-size:9px; color:var(--accent); }
+  nav ul{ list-style:none; display:flex; gap:36px; }
+  nav a{
+    font-size:13px; font-weight:500; color:var(--muted);
+    position:relative; padding:4px 0; transition:color .25s ease;
+  }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0; width:0; height:1px;
+    background:var(--accent); transition:width .3s ease;
+  }
+  nav a:hover{ color:var(--fg); }
+  nav a:hover::after{ width:100%; }
+
+  /* mobile nav */
+  .nav-toggle{
+    display:none; width:34px; height:34px; border:1.5px solid var(--fg); background:transparent;
+    cursor:pointer; align-items:center; justify-content:center; flex-direction:column; gap:5px;
+    flex-shrink:0;
+  }
+  .nav-toggle span{ width:16px; height:1.5px; background:var(--fg); transition:transform .25s ease, opacity .25s ease; }
+  body.nav-open .nav-toggle span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
+  body.nav-open .nav-toggle span:nth-child(2){ opacity:0; }
+  body.nav-open .nav-toggle span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
+
+  @media (max-width:760px){
+    .nav-toggle{ display:flex; }
+    nav ul{
+      display:flex; flex-direction:column; gap:0;
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw, 320px);
+      background:var(--panel); border-left:1.5px solid var(--fg);
+      padding:96px 32px 32px; z-index:55;
+      transform:translateX(100%); transition:transform .35s cubic-bezier(.22,1,.36,1);
+    }
+    body.nav-open nav ul{ transform:translateX(0); }
+    nav ul li{ border-bottom:1px solid var(--line); }
+    nav ul a{ display:block; padding:18px 0; font-size:16px; color:var(--fg); }
+    .nav-scrim{
+      display:none; position:fixed; inset:0; z-index:54;
+      background:rgba(28,26,22,0.35);
+    }
+    body.nav-open .nav-scrim{ display:block; }
+  }
+
+  section{ position:relative; z-index:1; padding:0 5vw; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top:120px; padding-bottom:80px;
+  }
+  .hero .eyebrow{ margin-bottom:26px; opacity:0; animation:riseIn .8s ease forwards; animation-delay:.15s; }
+  .hero h1{
+    font-size:clamp(46px, 8.4vw, 118px);
+    max-width:1180px;
+  }
+  .hero h1 .line{ display:block; overflow:hidden; }
+  .hero h1 .line span{
+    display:inline-block; opacity:0; transform:translateY(110%);
+    animation:riseIn .9s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .hero h1 .line:nth-child(1) span{ animation-delay:.28s; }
+  .hero h1 .line:nth-child(2) span{ animation-delay:.42s; color:var(--fg); font-weight:500; }
+  .hero h1 .accent-word{ color:var(--accent); }
+
+  @keyframes riseIn{ to{ opacity:1; transform:translateY(0); } }
+
+  .hero-sub{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:40px; margin-top:44px; max-width:1180px;
+    opacity:0; animation:riseIn .8s ease forwards; animation-delay:.75s;
+  }
+  .hero-sub p{ color:var(--muted); font-size:16px; max-width:440px; line-height:1.55; }
+
+  .cta-btn{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--fg); color:var(--bg);
+    font-weight:600; font-size:14px;
+    padding:15px 26px; border-radius:0; border:1.5px solid var(--fg);
+    white-space:nowrap;
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, background .25s ease, color .25s ease;
+    box-shadow:0 0 0 0 var(--fg);
+  }
+  .cta-btn:hover{ background:var(--accent); border-color:var(--accent); color:var(--bg); transform:translate(-4px,-4px); box-shadow:4px 4px 0 0 var(--fg); }
+  .cta-btn .arrow{ transition:transform .35s ease; }
+  .cta-btn:hover .arrow{ transform:translateX(4px); }
+
+  /* waveform */
+  .waveform{ margin-top:64px; width:100%; max-width:1180px; height:56px; opacity:0; animation:riseIn 1s ease forwards; animation-delay:1s; }
+  .waveform svg{ width:100%; height:100%; }
+  .waveform path{ stroke:var(--line-strong); }
+  .waveform path.active{ stroke:var(--accent); }
+
+  /* ---------- marquee ---------- */
+  .marquee-wrap{
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    background:var(--bg-alt);
+    padding:20px 0; overflow:hidden; white-space:nowrap;
+  }
+  .marquee-track{ display:inline-flex; animation:scroll 26s linear infinite; }
+  .marquee-track span{
+    font-family:'Inter', sans-serif; font-weight:700;
+    font-size:20px; padding:0 22px; color:var(--muted); letter-spacing:0.01em;
+    display:inline-flex; align-items:center; gap:22px;
+  }
+  .marquee-track span em{ color:var(--fg); font-style:normal; }
+  .marquee-track span::after{ content:'✦'; color:var(--accent); }
+  @keyframes scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(34px); transition:opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- section shell ---------- */
+  .band{ padding:120px 5vw; }
+  .band-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:56px; flex-wrap:wrap; }
+  .band-head h2{ font-size:clamp(34px, 5vw, 60px); }
+  .band-head p{ color:var(--muted); max-width:360px; font-size:15px; line-height:1.6; }
+
+  /* ---------- artist section ---------- */
+  .artist-grid{ display:grid; grid-template-columns:1fr 1.25fr; gap:48px; align-items:stretch; }
+  @media (max-width:860px){ .artist-grid{ grid-template-columns:1fr; } }
+  .monogram-card{
+    position:relative; border:1.5px solid var(--fg); border-radius:0;
+    padding:48px; display:flex; flex-direction:column; justify-content:space-between;
+    background:var(--panel);
+    min-height:380px; overflow:hidden;
+  }
+  .monogram-card .tag{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:0.1em; }
+
+  .label-disc{
+    align-self:center; position:relative;
+    width:min(220px, 42vw); height:min(220px, 42vw);
+    border-radius:50%;
+    background:
+      repeating-radial-gradient(circle, rgba(239,233,223,0.16) 0 1px, transparent 1px 14px),
+      radial-gradient(circle, var(--fg) 0 34%, #100e0b 34% 100%);
+    border:1px solid var(--fg);
+    display:flex; align-items:center; justify-content:center;
+    animation:spinLabel 18s linear infinite;
+  }
+  body.paused .label-disc{ animation-play-state:paused; }
+  @keyframes spinLabel{ to{ transform:rotate(360deg); } }
+  .label-disc .monogram{
+    font-family:'Inter', sans-serif; font-weight:700; font-size:clamp(30px,5vw,40px);
+    color:var(--accent); letter-spacing:0.02em;
+  }
+  .play-disabled{
+    margin-top:22px; display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.08em; color:var(--muted);
+  }
+  .play-disabled svg{ width:10px; height:10px; fill:var(--muted); opacity:0.7; }
+  .monogram-card .caption{ font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; letter-spacing:0.08em; }
+
+  .artist-copy{ display:flex; flex-direction:column; justify-content:center; gap:20px; }
+  .artist-copy h3{ font-size:clamp(24px,3vw,30px); font-weight:500; }
+  .artist-copy .meta{ display:flex; flex-direction:column; gap:6px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.06em; color:var(--muted); }
+  .artist-copy p.body{ color:var(--muted); font-size:15px; line-height:1.7; max-width:480px; }
+
+  /* ---------- about statement ---------- */
+  .about-band{ padding:110px 5vw; border-top:1px solid var(--line); }
+  .statement{
+    font-size:clamp(28px, 4.4vw, 52px);
+    max-width:1080px;
+    color:var(--muted);
+    font-weight:400;
+    font-family:'Inter', sans-serif;
+    line-height:1.2;
+  }
+  .statement strong{ color:var(--fg); font-weight:700; }
+  .statement em{ color:var(--accent); font-style:normal; font-weight:700; }
+
+  /* ---------- development cards ---------- */
+  .dev-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--fg); border:1.5px solid var(--fg); border-radius:0; overflow:hidden; }
+  @media (max-width:860px){ .dev-grid{ grid-template-columns:1fr; } }
+  .dev-card{
+    background:var(--bg-alt); padding:40px 34px; min-height:230px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:background .35s ease;
+  }
+  .dev-card:hover{ background:var(--panel); }
+  .dev-card .num{ font-family:'IBM Plex Mono',monospace; color:var(--muted); font-size:13px; }
+  .dev-card h4{ font-family:'Inter', sans-serif; font-size:20px; font-weight:600; margin-top:18px; }
+  .dev-card .sub{ color:var(--muted); font-size:13px; margin-top:6px; }
+  .status{
+    align-self:flex-start; margin-top:24px; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:0.08em; padding:6px 12px 6px 20px; border-radius:0;
+    border:1px solid var(--line-strong); color:var(--muted); position:relative;
+  }
+  .status::before{ content:''; position:absolute; left:10px; top:50%; transform:translateY(-50%); width:6px; height:6px; border-radius:50%; background:var(--muted); }
+  .status.open{ color:var(--accent); border-color:var(--accent); }
+  .status.open::before{ background:var(--accent); animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+  .dev-note{ margin-top:40px; color:var(--muted); font-style:italic; font-size:14px; max-width:560px; }
+
+  /* ---------- CTA ---------- */
+  .cta-band{
+    padding:140px 5vw; border-top:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:flex-start; gap:34px; position:relative;
+  }
+  .cta-band h2{ font-size:clamp(38px,6.5vw,88px); max-width:900px; }
+  .cta-band h2 .accent-word{ color:var(--accent); }
+  .cta-band p{ color:var(--muted); font-size:16px; max-width:520px; line-height:1.6; }
+  .big-link{
+    font-family:'Inter', sans-serif; font-weight:700; font-size:clamp(20px,2.6vw,28px);
+    display:inline-flex; align-items:center; gap:14px; border-bottom:1.5px solid var(--line-strong); padding-bottom:10px;
+    transition:border-color .25s ease, gap .25s ease, color .25s ease, transform .25s ease;
+  }
+  .big-link:hover{ border-color:var(--accent); color:var(--accent); gap:20px; transform:translateX(4px); }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:64px 5vw 40px; position:relative; z-index:1; }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; margin-bottom:56px; padding-bottom:56px; border-bottom:1px solid var(--line); }
+  .foot-signup h5{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--muted); margin-bottom:14px; text-transform:uppercase; }
+  .foot-signup p{ color:var(--muted); font-size:14px; max-width:320px; margin-bottom:18px; line-height:1.6; }
+  .signup-form{ display:flex; gap:0; max-width:360px; border:1.5px solid var(--fg); }
+  .signup-form input{
+    flex:1; border:none; background:transparent; padding:13px 14px; font-family:'Inter',sans-serif;
+    font-size:14px; color:var(--fg); outline:none;
+  }
+  .signup-form input::placeholder{ color:var(--muted); }
+  .signup-form button{
+    border:none; border-left:1.5px solid var(--fg); background:var(--fg); color:var(--bg);
+    padding:0 20px; font-weight:600; font-size:13px; cursor:pointer; transition:background .25s ease, color .25s ease;
+  }
+  .signup-form button:hover{ background:var(--accent); }
+  .signup-note{ font-size:11px; color:var(--muted); margin-top:10px; font-family:'IBM Plex Mono',monospace; }
+
+  .foot-platforms h5{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--muted); margin-bottom:14px; text-transform:uppercase; }
+  .platform-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .platform-chip{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; color:var(--muted);
+    border:1px solid var(--line-strong); padding:8px 14px; white-space:nowrap;
+  }
+
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; margin-bottom:60px; }
+  @media (max-width:760px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-logo{ font-family:'Inter', sans-serif; font-weight:700; font-size:26px; }
+  .foot-col h5{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--muted); margin-bottom:16px; text-transform:uppercase; }
+  .foot-col ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
+  .foot-col a{ font-size:14px; color:var(--fg); opacity:0.85; transition:opacity .25s ease, color .25s ease; }
+  .foot-col a:hover{ opacity:1; color:var(--accent); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:26px; border-top:1px solid var(--line); flex-wrap:wrap; gap:16px; }
+  .foot-bottom p{ font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; }
+  .foot-legal{ display:flex; gap:18px; }
+  .foot-legal a{ font-size:12px; color:var(--muted); font-family:'IBM Plex Mono',monospace; }
+  .foot-legal a:hover{ color:var(--accent); }
+
+  /* ---------- player bar ---------- */
+  body{ padding-bottom:64px; }
+  .player-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:60;
+    height:64px; display:flex; align-items:center; gap:18px;
+    padding:0 5vw;
+    background:rgba(239,233,223,0.92); backdrop-filter:blur(14px);
+    border-top:1.5px solid var(--fg);
+  }
+  .player-toggle{
+    width:34px; height:34px; border-radius:50%; border:1.5px solid var(--fg);
+    background:transparent; color:var(--fg); flex-shrink:0; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .25s ease, background .25s ease;
+  }
+  .player-toggle:hover{ border-color:var(--accent); background:var(--accent); }
+  .player-toggle:hover svg{ fill:var(--bg); }
+  .player-toggle svg{ width:13px; height:13px; fill:var(--fg); }
+  .player-toggle .icon-play{ display:none; }
+  body.paused .player-toggle .icon-pause{ display:none; }
+  body.paused .player-toggle .icon-play{ display:flex; }
+
+  .player-track{ flex-shrink:0; font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:0.04em; color:var(--muted); min-width:150px; }
+  .player-track em{ color:var(--fg); font-style:normal; }
+  @media (max-width:640px){ .player-track{ display:none; } }
+
+  .player-scrub{ flex:1; height:2px; background:var(--line-strong); border-radius:0; position:relative; overflow:hidden; }
+  .player-scrub-fill{ position:absolute; top:0; left:0; bottom:0; width:0%; background:var(--accent); }
+
+  .player-live{
+    flex-shrink:0; display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.1em; color:var(--muted);
+  }
+  .player-live .dot{ width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1.6s ease-in-out infinite; }
+  body.paused .player-live .dot{ animation-play-state:paused; opacity:0.3; }
+  @media (max-width:520px){ .player-live span:last-child{ display:none; } }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="noise-veil"></div>
+<div class="glow-field"><div class="glow glow-a"></div><div class="glow glow-b"></div></div>
+
+<header>
+  <div class="logo">FWNYXS<sup>®</sup></div>
+  <nav>
+    <ul id="navList">
+      <li><a href="#artist">Current Artist</a></li>
+      <li><a href="#development">Releases</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#submit">Submit</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="nav-scrim" id="navScrim"></div>
+
+<section class="hero">
+  <div class="disc" aria-hidden="true">
+    <svg viewBox="0 0 400 400">
+      <circle cx="200" cy="200" r="198" fill="none" stroke="rgba(28,26,22,0.14)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(28,26,22,0.12)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="142" fill="none" stroke="rgba(28,26,22,0.12)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="114" fill="none" stroke="rgba(28,26,22,0.1)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="86" fill="none" stroke="rgba(28,26,22,0.1)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="58" fill="var(--panel)" stroke="var(--line-strong)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="6" fill="var(--accent)"/>
+    </svg>
+  </div>
+  <div class="eyebrow">Independent Music / Creative Studio / Talent</div>
+  <h1>
+    <span class="line"><span>New <span class="accent-word">Sound.</span></span></span>
+    <span class="line"><span>New Possibility.</span></span>
+  </h1>
+  <div class="hero-sub">
+    <p>FWNYXS is a young independent music label and creative studio built around composers, emerging artists and the search for new sound.</p>
+    <a href="#submit" class="cta-btn">Enter FWNYXS <span class="arrow">→</span></a>
+  </div>
+  <div class="waveform">
+    <svg viewBox="0 0 1180 56" preserveAspectRatio="none" fill="none">
+      <path id="wavePath" d="M0,28 C 40,10 80,46 120,28 C160,10 200,46 240,28 C280,10 320,46 360,28 C400,10 440,46 480,28 C520,10 560,46 600,28 C640,10 680,46 720,28 C760,10 800,46 840,28 C880,10 920,46 960,28 C1000,10 1040,46 1080,28 C1110,16 1150,40 1180,28" stroke-width="1.5"/>
+    </svg>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <span><em>FWNYXS</em> COMPOSE / CREATE / DISCOVER</span>
+    <span><em>NEW SOUND</em> / NEW TALENT</span>
+    <span><em>FWNYXS</em> COMPOSE / CREATE / DISCOVER</span>
+    <span><em>NEW SOUND</em> / NEW TALENT</span>
+    <span><em>FWNYXS</em> COMPOSE / CREATE / DISCOVER</span>
+    <span><em>NEW SOUND</em> / NEW TALENT</span>
+  </div>
+</div>
+
+<section class="band" id="artist">
+  <div class="band-head reveal">
+    <div>
+      <div class="eyebrow">01 — Current Artist <span class="dur">03:14</span></div>
+      <h2 style="margin-top:14px;">One To Watch.</h2>
+    </div>
+    <p>FWNYXS currently works with a small creative roster by design. One artist, one developing sound — with more to come.</p>
+  </div>
+
+  <div class="artist-grid reveal">
+    <div class="monogram-card">
+      <div class="tag">FWNYXS / 001 — WORK IN PROGRESS</div>
+      <div class="label-disc"><span class="monogram">FW</span></div>
+      <div class="play-disabled">
+        <svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5-11-6.5z"/></svg>
+        <span>NOT YET RELEASED</span>
+      </div>
+      <div class="caption">ARTIST MATERIAL COMING SOON</div>
+    </div>
+    <div class="artist-copy">
+      <div class="meta">
+        <span>001</span>
+        <span>Current Artist</span>
+        <span>Artist / Composer — Developing</span>
+      </div>
+      <h3>Promotional visuals are currently in development.</h3>
+      <p class="body">This space will become the home for the artist, releases and projects as they take shape.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about-band" id="about">
+  <div class="eyebrow reveal">02 — About FWNYXS <span class="dur">01:52</span></div>
+  <p class="statement reveal" style="margin-top:26px;">
+    <strong>Who we are —</strong> an independent music label and creative studio built around <em>new sound.</em>
+    We work with composers and emerging artists to turn ideas into new possibilities.
+  </p>
+</section>
+
+<section class="band" id="development">
+  <div class="band-head reveal">
+    <div>
+      <div class="eyebrow">03 — In Development <span class="dur">02:37</span></div>
+      <h2 style="margin-top:14px;">What's Coming.</h2>
+    </div>
+  </div>
+
+  <div class="dev-grid reveal">
+    <div class="dev-card">
+      <div class="num">001 / FIRST RELEASE</div>
+      <div>
+        <h4>Current Artist</h4>
+        <div class="sub">Debut material in progress</div>
+      </div>
+      <span class="status">SOON</span>
+    </div>
+    <div class="dev-card">
+      <div class="num">002 / NEW PROJECT</div>
+      <div>
+        <h4>FWNYXS Studio</h4>
+        <div class="sub">Creative studio initiative</div>
+      </div>
+      <span class="status">TBA</span>
+    </div>
+    <div class="dev-card">
+      <div class="num">003 / NEXT SOUND</div>
+      <div>
+        <h4>Talent Search</h4>
+        <div class="sub">Roster expansion, open call</div>
+      </div>
+      <span class="status open">OPEN</span>
+    </div>
+  </div>
+  <p class="dev-note reveal">Some stories are better heard before they are announced. Releases and artist projects will appear here as they are ready.</p>
+</section>
+
+<section class="cta-band" id="submit">
+  <div class="eyebrow reveal">04 — Talent Search <span class="dur">04:08</span></div>
+  <h2 class="reveal">What's <span class="accent-word">Next?</span></h2>
+  <p class="reveal">FWNYXS is looking for artists, composers, producers and songwriters with a sound of their own. We are starting small, listening closely, and building possibilities together.</p>
+  <a href="mailto:demo@fwnyxs.my" class="big-link reveal">Submit Your Sound <span class="arrow">→</span></a>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div class="foot-signup">
+      <h5>Stay in the loop</h5>
+      <p>Get notified when the first release drops. No spam, just new sound.</p>
+      <form class="signup-form" id="signupForm">
+        <input type="email" id="signupEmail" placeholder="you@email.com" required>
+        <button type="submit">Notify Me</button>
+      </form>
+      <div class="signup-note">Opens your email client for now — swap in a real mailing-list provider (Mailchimp, ConvertKit, Beehiiv) once you're ready to collect these properly.</div>
+    </div>
+    <div class="foot-platforms">
+      <h5>Listen (coming soon)</h5>
+      <div class="platform-row">
+        <span class="platform-chip">Spotify</span>
+        <span class="platform-chip">Apple Music</span>
+        <span class="platform-chip">SoundCloud</span>
+        <span class="platform-chip">Bandcamp</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo">FWNYXS</div>
+    </div>
+    <div class="foot-col">
+      <h5>Explore</h5>
+      <ul>
+        <li><a href="#artist">Artists</a></li>
+        <li><a href="#development">Releases</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="mailto:hello@fwnyxs.my">Email</a></li>
+        <li><a href="mailto:demo@fwnyxs.my?subject=Demo%20Submission%20%E2%80%94%20FWNYXS">Demos</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 FWNYXS Independent Music / Malaysia</p>
+    <div class="foot-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<div class="player-bar">
+  <button class="player-toggle" id="playerToggle" aria-label="Pause ambient motion and sound">
+    <svg class="icon-play" viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5-11-6.5z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 16 16"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>
+  </button>
+  <div class="player-track">Now playing — <em id="playerTrackLabel">Intro</em></div>
+  <div class="player-scrub"><div class="player-scrub-fill" id="playerScrub"></div></div>
+  <div class="player-live"><span class="dot"></span><span>FWNYXS RADIO</span></div>
+</div>
+
+<script>
+  // mailing list signup — mailto fallback until a real ESP (Mailchimp/ConvertKit/etc) is wired in
+  const signupForm = document.getElementById('signupForm');
+  if(signupForm){
+    signupForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value.trim();
+      if(!email) return;
+      const subject = encodeURIComponent('Subscribe — FWNYXS mailing list');
+      const body = encodeURIComponent('Please add this email to the FWNYXS mailing list: ' + email);
+      window.location.href = `mailto:hello@fwnyxs.my?subject=${subject}&body=${body}`;
+    });
+  }
+
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navScrim = document.getElementById('navScrim');
+  const navList = document.getElementById('navList');
+  function closeNav(){
+    document.body.classList.remove('nav-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
+  }
+  function toggleNav(){
+    const isOpen = document.body.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  }
+  navToggle.addEventListener('click', toggleNav);
+  navScrim.addEventListener('click', closeNav);
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeNav(); });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=>io.observe(el));
+
+  // waveform active segment sweep
+  const wavePath = document.getElementById('wavePath');
+  if(wavePath){
+    const clone = wavePath.cloneNode();
+    clone.setAttribute('class','active');
+    clone.setAttribute('stroke-dasharray','120 1400');
+    clone.setAttribute('stroke-dashoffset','0');
+    wavePath.parentElement.appendChild(clone);
+    let offset = 0;
+    function animateWave(){
+      offset -= 4;
+      if(offset < -1520) offset = 0;
+      clone.setAttribute('stroke-dashoffset', offset);
+      requestAnimationFrame(animateWave);
+    }
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      animateWave();
+    }
+  }
+
+  // player bar: scroll progress
+  const scrubFill = document.getElementById('playerScrub');
+  function updateScrub(){
+    const h = document.documentElement;
+    const scrolled = h.scrollTop;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (scrolled / max) * 100 : 0;
+    scrubFill.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateScrub, { passive:true });
+  updateScrub();
+
+  // player bar: now-playing label per section
+  const trackLabel = document.getElementById('playerTrackLabel');
+  const trackMap = [
+    { id:'artist', label:'01 — Current Artist', freq:110, type:'sine' },
+    { id:'about', label:'02 — About FWNYXS', freq:220, type:'triangle' },
+    { id:'development', label:'03 — In Development', freq:165, type:'sawtooth' },
+    { id:'submit', label:'04 — Talent Search', freq:294, type:'sine' }
+  ];
+  const trackSections = trackMap
+    .map(t => ({ el: document.getElementById(t.id), label: t.label, freq:t.freq, type:t.type }))
+    .filter(t => t.el);
+  const trackIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const match = trackSections.find(t => t.el === e.target);
+        if(match){
+          trackLabel.textContent = match.label;
+          setTone(match.freq, match.type);
+        }
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  trackSections.forEach(t => trackIO.observe(t.el));
+
+  // ---------- ambient tone engine (procedural, no audio files) ----------
+  let audioCtx, osc, filterNode, gainNode, audioReady = false;
+  const TONE_TARGET_GAIN = 0.045;
+
+  function initAudio(initialFreq, initialType){
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    osc = audioCtx.createOscillator();
+    osc.type = initialType || 'sine';
+    osc.frequency.value = initialFreq || 110;
+    filterNode = audioCtx.createBiquadFilter();
+    filterNode.type = 'lowpass';
+    filterNode.frequency.value = 900;
+    gainNode = audioCtx.createGain();
+    gainNode.gain.value = 0;
+    osc.connect(filterNode).connect(gainNode).connect(audioCtx.destination);
+    osc.start();
+    audioReady = true;
+  }
+
+  function setTone(freq, type){
+    if(!audioReady || document.body.classList.contains('paused')) return;
+    const now = audioCtx.currentTime;
+    osc.frequency.cancelScheduledValues(now);
+    osc.frequency.setTargetAtTime(freq, now, 0.9);
+    if(osc.type !== type){
+      // brief dip to avoid an audible click when the waveform shape changes
+      gainNode.gain.setTargetAtTime(0, now, 0.08);
+      osc.type = type;
+      gainNode.gain.setTargetAtTime(TONE_TARGET_GAIN, now + 0.12, 0.3);
+    }
+  }
+
+  // player bar: play/pause toggle (pauses ambient motion + ambient tone)
+  const toggleBtn = document.getElementById('playerToggle');
+  toggleBtn.addEventListener('click', ()=>{
+    document.body.classList.toggle('paused');
+    const isPaused = document.body.classList.contains('paused');
+    toggleBtn.setAttribute('aria-label', isPaused ? 'Resume ambient motion and sound' : 'Pause ambient motion and sound');
+    const marquee = document.getElementById('marqueeTrack');
+    if(marquee) marquee.style.animationPlayState = isPaused ? 'paused' : 'running';
+
+    if(!isPaused){
+      const current = trackSections.find(t => t.label === trackLabel.textContent) || trackSections[0];
+      if(!audioReady){
+        initAudio(current ? current.freq : 110, current ? current.type : 'sine');
+      } else if(audioCtx.state === 'suspended'){
+        audioCtx.resume();
+      }
+      const now = audioCtx.currentTime;
+      gainNode.gain.cancelScheduledValues(now);
+      gainNode.gain.setTargetAtTime(TONE_TARGET_GAIN, now, 0.6);
+    } else if(audioReady){
+      const now = audioCtx.currentTime;
+      gainNode.gain.cancelScheduledValues(now);
+      gainNode.gain.setTargetAtTime(0, now, 0.3);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+SQL Error [2292] [23000]: ORA-02292: integrity constraint (BKP.N003_S001_UID_FK) violated - child record found
+ORA-02292: integrity constraint (BKP.N003_S001_UID_FK) violated - child record found
+
+
+
+SELECT ssm .* ,ssm.ROWID FROM ADM.S001_STF_MSTI|5 S001_IC_NO='791024015498'
+
+
+
+An error was encountered performing the requested operation:
+
+ORA-12541: Cannot connect. No listener at host 10.29.249.216 port 1521. (CONNECTION_ID=HuFLrPD9TLyIi1szvzzozA==)
+https://docs.oracle.com/error-help/db/ora-12541/
+12541. 00000 -  "Cannot connect. No listener at %s."
+*Cause:    The connection request could not be completed because either the
+           database listener process was not running on the specified host
+           and port, or an Interprocess Communication (IPC) protocol
+           connection was attempted but there was no listener for the
+           specified key running on the local machine. PL/SQL applications
+           using UTL packages can also get this error if the external server
+           process is not listening on the specified address.
+*Action:   If the error shows the host and port that the connection tried to
+           use, then ensure that a listener process is running on that host
+           and is listening on that port. If the message indicates that there
+           was no listener at the specified key, then ensure that the listener
+           is running on the local machine and listening for the specified
+           key. The listener process is used to initially handle all
+           connections to Oracle Database.
+Vendor code 12541
+
+
+
+DB01 / DBSRACA - 172.16.9.91
+user:system
+password:oracle123
+DB02 / DBSRACB - 172.16.9.91 
+user:system
+password:oracle123
+DB03 / DBRSACC - 172.16.9.91
+user:system
+password:oracle123
+DB04 / DBSRACD - 172.16.9.91
+user:system
+password:oracle123

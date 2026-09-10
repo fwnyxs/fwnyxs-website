@@ -1,0 +1,104 @@
+
+target db: 10.29.249.216:1521/dbpraca jumphost: 10.23.124.172 user oracle password: oracle123
+
+how about this, to connect to db2
+target jdbc:db2://10.23.132.43:33000/JIMDB2P
+ jumphost: 10.23.124.172 user oracle password: oracle123
+
+
+
+
+impdp system/oracle123@DBSRACB DIRECTORY=DATA_PUMP_DIR DUMPFILE=ibc_uat_training_1926.dmp LOGFILE=ibc_remap.log REMAP_SCHEMA=IBC_UAT:IBC TABLE_EXISTS_ACTION=REPLACE
+
+
+
+.172
+REPLICAT    STOPPED     PRCDR201    00:00:00      100:30:36
+.218
+EXTRACT     STOPPED     PEPNRMB1    00:00:00      839:25:19
+
+
+
+172
+ 7996.79          79.97
+
+.218
+ 4914.6         79.99
+
+
+.172
+ LIMIT_GB    USED_GB    FREE_GB   USED_PCT
+---------- ---------- ---------- ----------
+      2048      93.82    1954.18       4.58
+
+.172
+IMIT_GB    USED_GB    FREE_GB   USED_PCT
+---------- ---------- ---------- ----------
+     10000    7998.26    2001.74      79.98
+
+
+.216
+ LIMIT_GB    USED_GB    FREE_GB   USED_PCT
+---------- ---------- ---------- ----------
+      6144    4914.06    1229.94      79.98
+
+
+
+.172
+REPLICAT    RUNNING     PRCD0009    unknown       00:00:04
+
+
+
+
+SELECT ssm .* ,ssm.ROWID FROM ADM.S001_STF_MSTR ssm WHERE |5 S001_IC_NO='780902135028*
+
+
+
+REPLICAT    RUNNING     PRCD0009    unknown       00:00:04
+
+
+
+
+
+
+
+
+
+O
+
+1
+
+A-Z - S001_UID
+
+20260311004859885899
+
+A-Z S001_IC_NO
+
+780902135028
+
+A-Z S001_MFID
+
+780902135028
+
+SELECT ssm .* ,ssm.ROWID FROM ADM.S001_STF_MSTR ssm WHERE |5 S001_IC_NO='780902135028*
+
+A-Z S001_N001_UID
+
+A-Z S001_OLD_IC_NO
+
+A-Z S001_NO_PASSPORT
+
+A-Z S001_ID_LOCAL
+
+NULL
+
+A Data error
+
+Error synchronizing data with database
+
+OK
+
+SQL Error [2292] [23000]: ORA-02292: integrity constraint (BKP.N003_S001_UID_FK) violated - child record found
+ORA-02292: integrity constraint (BKP.N003_S001_UID_FK) violated - child record found
+
+<< Details

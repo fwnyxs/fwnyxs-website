@@ -1,0 +1,15 @@
+[[redirects]]
+  from = "/laiya/*"
+  to = "https://laiya.fwnyxs.my/1/hate"
+  status = 301
+  force = true
+  conditions = {Host = ["laiya.fwnyxs.my"]}
+
+
+
+[[redirects]]
+  from = "/laiya/*"
+  to = "https://laiya.example.com/:splat"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}

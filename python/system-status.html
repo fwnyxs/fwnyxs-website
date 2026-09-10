@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>System Disk Status</title>
+  <style>
+    :root{--ink:#17212b;--muted:#65727d;--line:#dbe2e7;--paper:#f7f8f6;--panel:#fff;--accent:#0b766e;--danger:#a33a32}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:15px/1.5 "Segoe UI",sans-serif}.shell{max-width:1100px;margin:auto;padding:42px clamp(20px,4vw,64px) 64px}header{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px}.kicker{color:var(--accent);font:700 12px/1.2 Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}h1{margin:8px 0 0;font:600 clamp(32px,5vw,62px)/.98 Georgia,serif;letter-spacing:-.04em}.status{color:var(--muted);font:12px Consolas,monospace;text-align:right}.panel{border:1px solid var(--line);background:var(--panel);padding:20px;box-shadow:0 10px 30px #193b4210}button{border:0;background:var(--accent);color:#fff;padding:12px 20px;min-height:42px;font-weight:700;cursor:pointer}button:hover{background:#07534e}button:disabled{cursor:wait;opacity:.6}.message{min-height:25px;margin:16px 0 10px;color:var(--muted)}.message.error{color:var(--danger)}pre{margin:0;overflow:auto;padding:20px;background:#142027;color:#e6f2ed;font:14px/1.65 Consolas,monospace;white-space:pre;min-height:230px}@media(max-width:700px){header{align-items:start;flex-direction:column}.status{text-align:left}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header><div><div class="kicker">Python / host diagnostics</div><h1>Disk status</h1></div><div id="status" class="status">READY / NOT CHECKED</div></header>
+    <div class="panel"><button id="refresh" type="button">REFRESH DISK STATUS</button><div id="identity" class="message">HOST: --<br>WSL IP: --</div><div id="message" class="message" role="status">Loading disk usage...</div><pre id="output">No output loaded.</pre></div>
+  </main>
+  <script>
+    const button=document.querySelector('#refresh'),identity=document.querySelector('#identity'),message=document.querySelector('#message'),status=document.querySelector('#status'),output=document.querySelector('#output');
+    async function loadDiskStatus(){button.disabled=true;message.className='message';message.textContent='Running disk usage command...';status.textContent='RUNNING / HOST';try{const response=await fetch('/api/system/disk');const payload=await response.json();if(!response.ok)throw new Error(payload.error||'Request failed');identity.innerHTML='HOST: '+escapeHtml(payload.hostname)+'<br>WSL IP: '+escapeHtml(payload.ip_address);output.textContent=payload.output||'No disk information returned.';message.textContent='Last checked: '+new Date().toLocaleString();status.textContent='OK / HOST'}catch(error){output.textContent='';message.className='message error';message.textContent=error.message;status.textContent='ERROR / HOST'}finally{button.disabled=false}}
+    function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]))}
+    button.addEventListener('click',loadDiskStatus);loadDiskStatus();
+  </script>
+</body>
+</html>

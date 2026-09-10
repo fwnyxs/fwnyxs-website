@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100">
+<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#050505"/><stop offset=".55" stop-color="#30302e"/><stop offset="1" stop-color="#080808"/></linearGradient></defs>
+<rect width="900" height="1100" fill="url(#g)"/>
+<ellipse cx="465" cy="380" rx="220" ry="300" fill="#111"/>
+<path d="M180 1100 Q220 720 350 610 Q465 550 610 620 Q760 740 790 1100" fill="#090909"/>
+<path d="M260 210 Q450 40 650 220 L610 570 Q490 680 300 540Z" fill="#030303"/>
+<path d="M680 190 L755 680" stroke="#eee" stroke-width="6" opacity=".8"/>
+<path d="M150 930 L440 560" stroke="#aaa" stroke-width="4" opacity=".7"/>
+<text x="55" y="70" fill="#eee" font-family="Arial" font-size="28" font-weight="bold" letter-spacing="9">LAIYA</text>
+<text x="55" y="1020" fill="#aaa" font-family="monospace" font-size="14" letter-spacing="3">BLACK / WHITE / DEBUT ERA</text>
+</svg>

@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>FWNYXS — Independent Music / Creative Studio</title>
+  <meta
+    name="description"
+    content="FWNYXS is an independent music label and creative studio developing new sounds and discovering emerging artists."
+  />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #080808;
+      --text: #f2f2f2;
+      --muted: #858585;
+      --line: #242424;
+      --accent: #dfff00;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      mix-blend-mode: difference;
+      color: white;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links a {
+      opacity: .8;
+      transition: opacity .2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding: 120px 32px 48px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .12;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: linear-gradient(to bottom, black, transparent);
+    }
+
+    .hero-circle {
+      position: absolute;
+      width: 65vw;
+      height: 65vw;
+      max-width: 900px;
+      max-height: 900px;
+      border-radius: 50%;
+      right: -20%;
+      top: 8%;
+      background:
+        radial-gradient(
+          circle at 35% 35%,
+          rgba(223,255,0,.22),
+          rgba(223,255,0,.04) 35%,
+          transparent 68%
+        );
+      filter: blur(10px);
+      animation: breathe 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes breathe {
+      from {
+        transform: scale(.95) rotate(0deg);
+      }
+      to {
+        transform: scale(1.08) rotate(12deg);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .eyebrow span {
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-size: clamp(72px, 14vw, 210px);
+      line-height: .78;
+      letter-spacing: -.095em;
+      font-weight: 900;
+      max-width: 1200px;
+      text-transform: uppercase;
+    }
+
+    .hero-bottom {
+      margin-top: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+    }
+
+    .hero-description {
+      max-width: 390px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #a8a8a8;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      border: 1px solid #444;
+      padding: 17px 22px;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      transition: all .25s;
+    }
+
+    .hero-cta:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+    }
+
+    /* =========================
+       MARQUEE
+    ========================= */
+
+    .marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 17px 0;
+      white-space: nowrap;
+    }
+
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+      font-size: 11px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .marquee strong {
+      color: var(--accent);
+      margin: 0 40px;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* =========================
+       GENERAL
+    ========================= */
+
+    section {
+      padding: 140px 32px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      margin-bottom: 55px;
+    }
+
+    /* =========================
+       ARTISTS
+    ========================= */
+
+    .artists-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 70px;
+    }
+
+    .artists-header h2 {
+      font-size: clamp(45px, 7vw, 100px);
+      line-height: .85;
+      letter-spacing: -.07em;
+      text-transform: uppercase;
+    }
+
+    .artists-header p {
+      max-width: 280px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .artists {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .artist {
+      position: relative;
+      aspect-ratio: 1 / 1.15;
+      overflow: hidden;
+      background: #151515;
+    }
+
+    .artist-image {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          145deg,
+          #202020,
+          #080808
+        );
+      transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .artist:nth-child(2) .artist-image {
+      background:
+        radial-gradient(circle at 70% 25%, #555, transparent 30%),
+        linear-gradient(135deg, #181818, #020202);
+    }
+
+    .artist:nth-child(3) .artist-image {
+      background:
+        radial-gradient(circle at 40% 65%, #414141, transparent 25%),
+        linear-gradient(135deg, #090909, #242424);
+    }
+
+    .artist:hover .artist-image {
+      transform: scale(1.06);
+    }
+
+    .artist-overlay {
+      position: absolute;
+      inset: 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(
+        transparent 40%,
+        rgba(0,0,0,.8)
+      );
+    }
+
+    .artist-number {
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      font-size: 10px;
+      color: #aaa;
+    }
+
+    .artist-name {
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -.06em;
+      text-transform: uppercase;
+    }
+
+    .artist-type {
+      color: var(--accent);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      margin-top: 6px;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 80px;
+    }
+
+    .about-title {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+    }
+
+    .about-text {
+      font-size: clamp(34px, 5vw, 75px);
+      line-height: .98;
+      letter-spacing: -.06em;
+      max-width: 1000px;
+    }
+
+    .about-text span {
+      color: #444;
+    }
+
+    /* =========================
+       RELEASES
+    ========================= */
+
+    .release-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .release {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr 100px;
+      align-items: center;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding .25s;
+    }
+
+    .release:hover {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .release-number {
+      color: #555;
+      font-size: 11px;
+    }
+
+    .release-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.04em;
+    }
+
+    .release-artist {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .release-year {
+      text-align: right;
+      color: #555;
+      font-size: 11px;
+    }
+
+    /* =========================
+       TALENT
+    ========================= */
+
+    .talent {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .talent-big {
+      font-size: clamp(65px, 13vw, 190px);
+      line-height: .78;
+      letter-spacing: -.1em;
+      font-weight: 900;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+    }
+
+    .talent-big div:nth-child(2) {
+      color: transparent;
+      -webkit-text-stroke: 1px #555;
+    }
+
+    .talent-description {
+      position: relative;
+      z-index: 2;
+      max-width: 420px;
+      margin-top: 65px;
+      color: #999;
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .talent-button {
+      margin-top: 30px;
+      display: inline-flex;
+      width: fit-content;
+      background: var(--accent);
+      color: #000;
+      padding: 18px 25px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      transition: transform .25s;
+    }
+
+    .talent-button:hover {
+      transform: translateY(-4px);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 60px 32px 30px;
+    }
+
+    .footer-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 100px;
+    }
+
+    .footer-logo {
+      font-size: clamp(60px, 12vw, 170px);
+      font-weight: 900;
+      letter-spacing: -.1em;
+      line-height: .75;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 60px;
+    }
+
+    .footer-column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .footer-column span {
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .footer-bottom {
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      color: #555;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+    }
+
+
+    /* =========================
+       CURRENT ARTIST / PLACEHOLDERS
+    ========================= */
+
+    .artist-feature {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .artist-mockup {
+      min-height: min(68vw, 760px);
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 72% 26%, rgba(223,255,0,.24), transparent 20%),
+        radial-gradient(circle at 28% 72%, rgba(255,255,255,.08), transparent 24%),
+        linear-gradient(135deg, #151515 0%, #050505 48%, #1d1d1d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #252525;
+    }
+
+    .artist-mockup::before {
+      content: "";
+      position: absolute;
+      width: 55%;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.14);
+      transform: rotate(23deg);
+      box-shadow: 0 0 80px rgba(223,255,0,.07);
+    }
+
+    .artist-mockup::after {
+      content: "";
+      position: absolute;
+      width: 32%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1px solid rgba(223,255,0,.42);
+      transform: translate(14%, -8%);
+    }
+
+    .mockup-grain {
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      background-image:
+        repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.08) 4px),
+        repeating-linear-gradient(90deg, transparent 0 5px, rgba(255,255,255,.04) 6px);
+      mix-blend-mode: overlay;
+    }
+
+    .mockup-top,
+    .mockup-bottom {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 2;
+      font-size: 9px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #777;
+    }
+
+    .mockup-top { top: 22px; }
+    .mockup-bottom { bottom: 22px; }
+
+    .mockup-mark {
+      position: relative;
+      z-index: 2;
+      font-size: clamp(90px, 16vw, 220px);
+      font-weight: 900;
+      letter-spacing: -.12em;
+      line-height: .7;
+      color: rgba(242,242,242,.9);
+      text-shadow: 0 0 60px rgba(223,255,0,.08);
+    }
+
+    .artist-feature-copy {
+      position: relative;
+      min-height: 100%;
+      padding: 32px;
+      border: 1px solid var(--line);
+      background: #0d0d0d;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .artist-feature-copy .artist-number {
+      top: 26px;
+      left: 26px;
+    }
+
+    .artist-feature-copy .artist-name {
+      font-size: clamp(38px, 5vw, 70px);
+    }
+
+    .artist-feature-copy p {
+      margin-top: 32px;
+      max-width: 360px;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .development-note {
+      max-width: 520px;
+      margin-top: 30px;
+      color: #555;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+
+    /* =========================
+       SOFT GLITCH TYPE
+    ========================= */
+
+    .glitch-soft {
+      position: relative;
+      display: inline-block;
+      isolation: isolate;
+    }
+
+    .glitch-soft::before,
+    .glitch-soft::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      overflow: hidden;
+      white-space: inherit;
+    }
+
+    .glitch-soft::before {
+      color: rgba(223,255,0,.42);
+      transform: translateX(-1px);
+      clip-path: inset(0 0 55% 0);
+      animation: softGlitchA 6.8s infinite steps(1,end);
+      z-index: -1;
+    }
+
+    .glitch-soft::after {
+      color: rgba(255,255,255,.38);
+      transform: translateX(1px);
+      clip-path: inset(55% 0 0 0);
+      animation: softGlitchB 8.4s infinite steps(1,end);
+      z-index: -1;
+    }
+
+    .glitch-soft .glitch-core {
+      display: inline-block;
+      animation: softGlitchCore 7.2s infinite;
+    }
+
+    @keyframes softGlitchCore {
+      0%,92%,100% { transform:translateX(0); opacity:1; }
+      93% { transform:translateX(-1px); opacity:.94; }
+      94% { transform:translateX(1px); opacity:.98; }
+      95% { transform:translateX(0); opacity:1; }
+    }
+
+    @keyframes softGlitchA {
+      0%,89%,93%,100% { opacity:0; transform:translateX(0); }
+      90% { opacity:.32; transform:translateX(-2px); }
+      91% { opacity:.12; transform:translateX(1px); }
+      92% { opacity:0; }
+    }
+
+    @keyframes softGlitchB {
+      0%,91%,95%,100% { opacity:0; transform:translateX(0); }
+      92% { opacity:.24; transform:translateX(2px); }
+      93% { opacity:.08; transform:translateX(-1px); }
+      94% { opacity:0; }
+    }
+
+    .logo.glitch-soft {
+      animation: logoPulse 9s infinite;
+    }
+
+    @keyframes logoPulse {
+      0%,94%,100% { letter-spacing:-.08em; opacity:1; }
+      95% { letter-spacing:-.075em; opacity:.92; }
+      96% { letter-spacing:-.082em; opacity:1; }
+    }
+
+    /* =========================
+       COOKIE CONSENT
+    ========================= */
+
+    .cookie-consent {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(8, 8, 8, .68);
+      backdrop-filter: blur(8px);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .cookie-consent.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .cookie-panel {
+      position: relative;
+      width: min(100%, 760px);
+      min-height: 340px;
+      overflow: hidden;
+      padding: 40px;
+      color: #080808;
+      background: linear-gradient(135deg, #f7c9f6 0%, #fff2fc 56%, #f5b4ef 100%);
+      border-radius: 22px;
+      box-shadow: 0 30px 90px rgba(0,0,0,.42);
+      animation: cookiePanelIn .55s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .cookie-panel::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      right: -76px;
+      bottom: -112px;
+      border-radius: 50%;
+      background: #ec1bcf;
+      box-shadow: -44px -22px 0 3px #f05be0, -74px -48px 0 6px #f38ae9;
+      opacity: .76;
+      transform: rotate(-18deg);
+    }
+
+    .cookie-panel-content {
+      position: relative;
+      z-index: 1;
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cookie-kicker {
+      display: inline-block;
+      margin-bottom: 18px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #d312b7;
+    }
+
+    .cookie-panel h2 {
+      margin-bottom: 14px;
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: .95;
+      letter-spacing: -.06em;
+    }
+
+    .cookie-panel p {
+      max-width: 490px;
+      margin-bottom: 24px;
+      color: #342432;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .cookie-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .cookie-action-area {
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      grid-template-rows: auto auto;
+      justify-content: end;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+    }
+
+    .cookie-action-area .cookie-actions {
+      display: contents;
+    }
+
+    .cookie-action-area .cookie-button-primary {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .cookie-action-area .cookie-button:nth-child(2) {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .cookie-action-area .cookie-button:nth-child(3) {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .cookie-action-area #preferenceActions .cookie-button-primary {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .cookie-action-area #preferenceActions .cookie-button:nth-child(2) {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .cookie-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: auto;
+    }
+
+    .cookie-disclaimer {
+      max-width: 450px;
+      margin-top: 4px;
+      color: #5b4255;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .cookie-disclaimer a {
+      color: #8f0b7b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .cookie-button {
+      min-height: 36px;
+      padding: 0 13px;
+      border: 1px solid #080808;
+      border-radius: 9px;
+      color: #080808;
+      background: transparent;
+      font: inherit;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, color .2s ease;
+    }
+
+    .cookie-button:hover,
+    .cookie-button:focus-visible {
+      background: #080808;
+      color: #fff;
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .cookie-button-primary {
+      background: #080808;
+      color: #fff;
+    }
+
+    .cookie-settings {
+      position: fixed;
+      left: 16px;
+      top: 50%;
+      z-index: 150;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border: 1px solid #343434;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      cursor: pointer;
+      transform: translateY(-50%);
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .cookie-settings:hover,
+    .cookie-settings:focus-visible {
+      background: var(--accent);
+      color: #080808;
+      transform: translateY(-50%) scale(1.08);
+      outline: none;
+    }
+
+    .cookie-symbol {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .cookie-symbol::before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      right: -2px;
+      top: -2px;
+      border-radius: 50%;
+      background: #111;
+    }
+
+    .cookie-settings:hover .cookie-symbol::before,
+    .cookie-settings:focus-visible .cookie-symbol::before {
+      background: var(--accent);
+    }
+
+    .cookie-dot {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .cookie-dot-one { left: 5px; top: 5px; }
+    .cookie-dot-two { left: 10px; top: 11px; }
+    .cookie-dot-three { left: 4px; top: 13px; }
+
+    @keyframes cookiePanelIn {
+      from { opacity: 0; transform: translateY(18px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .glitch-soft::before,
+      .glitch-soft::after,
+      .glitch-soft .glitch-core,
+      .logo.glitch-soft,
+      .cookie-panel {
+        animation:none;
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      nav {
+        padding: 20px;
+      }
+
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a:nth-child(1),
+      .nav-links a:nth-child(2) {
+        display: none;
+      }
+
+      .hero {
+        padding: 120px 20px 30px;
+      }
+
+      h1 {
+        font-size: 23vw;
+      }
+
+      .hero-bottom {
+        margin-top: 55px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      section {
+        padding: 90px 20px;
+      }
+
+      .artist-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .artist-mockup {
+        min-height: 110vw;
+      }
+
+      .artist-feature-copy {
+        min-height: 420px;
+      }
+
+      .artists-header {
+        display: block;
+      }
+
+      .artists-header p {
+        margin-top: 25px;
+      }
+
+      .artists {
+        grid-template-columns: 1fr;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .about-text {
+        font-size: 12vw;
+      }
+
+      .release {
+        grid-template-columns: 35px 1fr 60px;
+      }
+
+      .release-artist {
+        display: none;
+      }
+
+      .footer-main {
+        display: block;
+      }
+
+      .footer-links {
+        margin-top: 60px;
+        gap: 35px;
+      }
+
+      .footer-bottom {
+        gap: 20px;
+      }
+
+      .cookie-consent {
+        padding: 16px;
+      }
+
+      .cookie-panel {
+        min-height: 0;
+        padding: 28px 24px;
+      }
+
+      .cookie-panel-content {
+        min-height: 280px;
+      }
+
+      .cookie-bottom {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .cookie-action-area {
+        justify-content: start;
+        grid-template-columns: repeat(2, max-content);
+      }
+
+      .cookie-panel::after {
+        right: -110px;
+        bottom: -145px;
+        transform: scale(.75) rotate(-18deg);
+      }
+
+      .cookie-settings {
+        left: 10px;
+        width: 42px;
+        height: 42px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+    <a href="#" class="logo glitch-soft" data-text="FWNYXS®">FWNYXS®</a>
+
+    <div class="nav-links">
+      <a href="#artists">Current Artist</a>
+      <a href="#releases">Releases</a>
+      <a href="#about">About</a>
+      <a href="#submit">Submit</a>
+    </div>
+  </nav>
+
+
+  <!-- HERO -->
+
+  <main>
+
+    <section class="hero">
+
+      <div class="hero-grid"></div>
+      <div class="hero-circle"></div>
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          <span></span>
+          Independent Music / Creative Studio / Talent
+        </div>
+
+        <h1>
+          <span class="glitch-soft" data-text="New"><span class="glitch-core">New</span></span><br>
+          <span class="glitch-soft" data-text="Sound."><span class="glitch-core">Sound.</span></span><br>
+          <span class="glitch-soft" data-text="New Possibility."><span class="glitch-core">New Possibility.</span></span>
+        </h1>
+
+        <div class="hero-bottom">
+
+          <p class="hero-description">
+            FWNYXS is a young independent music label and creative studio
+            built around composers, emerging artists and the search for new sound.
+          </p>
+
+          <a href="#submit" class="hero-cta">
+            Enter FWNYXS →
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MARQUEE -->
+
+    <div class="marquee">
+      <div class="marquee-inner">
+        FWNYXS <strong>✦</strong>
+        COMPOSE / CREATE / DISCOVER <strong>✦</strong>
+        NEW SOUND / NEW TALENT <strong>✦</strong>
+        FWNYXS <strong>✦</strong>
+        COMPOSE / CREATE / DISCOVER <strong>✦</strong>
+        NEW SOUND / NEW TALENT <strong>✦</strong>
+      </div>
+    </div>
+
+
+    <!-- CURRENT ARTIST -->
+
+    <section id="artists">
+
+      <div class="section-label">
+        01 — Current Artist
+      </div>
+
+      <div class="artists-header">
+
+        <h2>
+          One<br>
+          To Watch.
+        </h2>
+
+        <p>
+          FWNYXS currently works with a small creative roster by design.
+          One artist, one developing sound — with more to come.
+        </p>
+
+      </div>
+
+      <div class="artist-feature">
+
+        <div class="artist-mockup" aria-label="Placeholder artist artwork">
+          <div class="mockup-grain"></div>
+          <div class="mockup-top">
+            <span>FWNYXS / 001</span>
+            <span>WORK IN PROGRESS</span>
+          </div>
+          <div class="mockup-mark">FW</div>
+          <div class="mockup-bottom">
+            <span>ARTIST MATERIAL</span>
+            <span>COMING SOON</span>
+          </div>
+        </div>
+
+        <div class="artist-feature-copy">
+          <div class="artist-number">001</div>
+          <div class="artist-name">Current Artist</div>
+          <div class="artist-type">Artist / Composer — Developing</div>
+          <p>
+            Promotional visuals are currently in development.
+            This space will become the home for the artist,
+            releases and projects as they take shape.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+      <div class="section-label">
+        02 — About FWNYXS
+      </div>
+
+      <div class="about">
+
+        <div class="about-title">
+          Who we are
+        </div>
+
+        <div class="about-text">
+          An independent
+          music label and
+          <span>creative studio
+          built around new sound.</span>
+          <br><br>
+          We work with composers
+          and emerging artists
+          to turn ideas into
+          <span>new possibilities.</span>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- RELEASES -->
+
+    <section id="releases">
+
+      <div class="section-label">
+        03 — In Development
+      </div>
+
+      <div class="release-list">
+
+        <div class="release">
+          <div class="release-number">001</div>
+          <div class="release-title">FIRST RELEASE</div>
+          <div class="release-artist">Current Artist</div>
+          <div class="release-year">SOON</div>
+        </div>
+
+        <div class="release">
+          <div class="release-number">002</div>
+          <div class="release-title">NEW PROJECT</div>
+          <div class="release-artist">FWNYXS STUDIO</div>
+          <div class="release-year">TBA</div>
+        </div>
+
+        <div class="release">
+          <div class="release-number">003</div>
+          <div class="release-title">NEXT SOUND</div>
+          <div class="release-artist">TALENT SEARCH</div>
+          <div class="release-year">OPEN</div>
+        </div>
+
+      </div>
+
+      <p class="development-note">
+        Some stories are better heard before they are announced.
+        Releases and artist projects will appear here as they are ready.
+      </p>
+
+    </section>
+
+
+    <!-- TALENT SUBMISSION -->
+
+    <section class="talent" id="submit">
+
+      <div class="section-label">
+        04 — Talent Search
+      </div>
+
+      <div class="talent-big">
+        <span class="glitch-soft" data-text="What's"><span class="glitch-core">What's</span></span><br>
+        <div class="glitch-soft" data-text="Next?"><span class="glitch-core">Next?</span></div>
+      </div>
+
+      <p class="talent-description">
+        FWNYXS is looking for artists, composers, producers and
+        songwriters with a sound of their own. We are starting small,
+        listening closely, and building possibilities together.
+      </p>
+
+      <a href="mailto:demo@fwnyxs.my" class="talent-button">
+        Submit Your Sound →
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-main">
+
+      <div class="footer-logo glitch-soft" data-text="FWNYXS"><span class="glitch-core">FWNYXS</span></div>
+
+      <div class="footer-links">
+
+        <div class="footer-column">
+          <span>Explore</span>
+          <a href="#artists">Artists</a>
+          <a href="#releases">Releases</a>
+          <a href="#about">About</a>
+        </div>
+
+        <div class="footer-column">
+          <span>Connect</span>
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">YouTube</a>
+        </div>
+
+        <div class="footer-column">
+          <span>Contact</span>
+          <a href="mailto:hello@fwnyxs.my">Email</a>
+          <a href="mailto:demo@fwnyxs.my">Demos</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 FWNYXS</span>
+      <span>Independent Music / Malaysia</span>
+    </div>
+
+  </footer>
+
+  <!-- COOKIE CONSENT -->
+
+  <button class="cookie-settings" id="cookieSettings" type="button" aria-label="Manage cookies" title="Manage cookies">
+    <span class="cookie-symbol" aria-hidden="true">
+      <span class="cookie-dot cookie-dot-one"></span>
+      <span class="cookie-dot cookie-dot-two"></span>
+      <span class="cookie-dot cookie-dot-three"></span>
+    </span>
+  </button>
+
+  <div class="cookie-consent" id="cookieConsent" role="dialog" aria-modal="true" aria-labelledby="cookieTitle">
+    <div class="cookie-panel">
+      <div class="cookie-panel-content">
+        <div class="cookie-kicker">A small preference</div>
+        <h2 id="cookieTitle">Cookies, with care.</h2>
+        <p id="cookieDescription">
+          We use a few cookies to keep FWNYXS working smoothly and understand what helps people discover new sound.
+          Your choices stay yours.
+        </p>
+
+        <div class="cookie-bottom">
+          <div class="cookie-disclaimer">
+            By continuing, you agree to our use of cookies. Read the
+            <a href="disclaimer.html">disclaimer notice</a>.
+          </div>
+
+          <div class="cookie-action-area">
+            <div class="cookie-actions" id="cookieActions">
+              <button class="cookie-button cookie-button-primary" id="acceptCookies" type="button">Accept all</button>
+              <button class="cookie-button" id="rejectCookies" type="button">Only necessary</button>
+              <button class="cookie-button" id="manageCookies" type="button">Manage</button>
+            </div>
+
+            <div class="cookie-actions" id="preferenceActions" hidden>
+              <button class="cookie-button cookie-button-primary" id="savePreferences" type="button">Save choices</button>
+              <button class="cookie-button" id="backToConsent" type="button">Back</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const cookieConsent = document.getElementById('cookieConsent');
+    const cookieSettings = document.getElementById('cookieSettings');
+    const cookieActions = document.getElementById('cookieActions');
+    const preferenceActions = document.getElementById('preferenceActions');
+    const cookieDescription = document.getElementById('cookieDescription');
+    const cookieTitle = document.getElementById('cookieTitle');
+
+    function closeCookieConsent() {
+      cookieConsent.classList.add('is-hidden');
+      cookieSettings.focus();
+    }
+
+    function openCookieConsent() {
+      cookieConsent.classList.remove('is-hidden');
+      cookieTitle.textContent = 'Cookies, with care.';
+      cookieDescription.textContent = 'We use a few cookies to keep FWNYXS working smoothly and understand what helps people discover new sound. Your choices stay yours.';
+      cookieActions.hidden = false;
+      preferenceActions.hidden = true;
+    }
+
+    document.getElementById('acceptCookies').addEventListener('click', closeCookieConsent);
+    document.getElementById('rejectCookies').addEventListener('click', closeCookieConsent);
+    document.getElementById('savePreferences').addEventListener('click', closeCookieConsent);
+    cookieSettings.addEventListener('click', openCookieConsent);
+
+    document.getElementById('manageCookies').addEventListener('click', () => {
+      cookieTitle.textContent = 'Choose your settings.';
+      cookieDescription.textContent = 'Necessary cookies are always on. Optional measurement cookies help us understand how the site is discovered.';
+      cookieActions.hidden = true;
+      preferenceActions.hidden = false;
+    });
+
+    document.getElementById('backToConsent').addEventListener('click', openCookieConsent);
+
+    cookieConsent.addEventListener('click', (event) => {
+      if (event.target === cookieConsent) {
+        closeCookieConsent();
+      }
+    });
+  </script>
+
+</body>
+</html>

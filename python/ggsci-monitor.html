@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GGSCI Monitor</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #101821;
+      --header: #121c26;
+      --border: #2c3a44;
+      --text: #dfe7ee;
+      --muted: #a8b4be;
+      --ok: #7ef0a8;
+      --warn: #f7d66d;
+      --bad: #ff7b72;
+      --info: #7ab8ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #0b0f14;
+      color: var(--text);
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .shell {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 18px 40px;
+    }
+
+    .titlebar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      background: var(--header);
+      border: 1px solid var(--border);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      background: #1a2734;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 700;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #233342;
+    }
+
+    .console {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 10px 12px 8px;
+      min-height: 300px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .prompt {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 2px 4px 10px;
+      white-space: pre;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr 1.2fr;
+      gap: 10px;
+      padding: 4px 6px;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    .header {
+      color: var(--text);
+      font-weight: 700;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      margin-bottom: 2px;
+    }
+
+    .row {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+
+    .status-ok { color: var(--ok); font-weight: 700; }
+    .status-warn { color: var(--warn); font-weight: 700; }
+    .status-bad { color: var(--bad); font-weight: 700; }
+    .status-info { color: var(--info); font-weight: 700; }
+
+    .empty {
+      color: var(--muted);
+      padding: 18px 6px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="titlebar">
+      <div class="title">GGSCI / INFO ALL</div>
+      <div id="status" class="muted">READY</div>
+    </div>
+
+    <div class="toolbar">
+      <div id="hostLabel" class="muted">Remote GoldenGate host</div>
+      <button id="refreshBtn" type="button">REFRESH</button>
+    </div>
+
+    <div class="console">
+      <div id="prompt" class="prompt">GGSCI (remote) 1> info all</div>
+      <div id="table"></div>
+    </div>
+  </main>
+
+  <script>
+    const table = document.getElementById('table');
+    const status = document.getElementById('status');
+    const hostLabel = document.getElementById('hostLabel');
+    const refreshBtn = document.getElementById('refreshBtn');
+
+    function rowClass(statusText) {
+      const value = String(statusText || '').toUpperCase();
+      if (value.includes('RUN')) return 'status-ok';
+      if (value.includes('STOP') || value.includes('ABEND')) return 'status-warn';
+      if (value.includes('ERROR') || value.includes('FAIL')) return 'status-bad';
+      return 'status-info';
+    }
+
+    function renderRows(rows) {
+      if (!rows || rows.length === 0) {
+        table.innerHTML = '<div class="empty">No GoldenGate processes reported.</div>';
+        return;
+      }
+
+      const header = document.createElement('div');
+      header.className = 'grid header';
+      header.innerHTML = '<div>Program</div><div>Status</div><div>Group</div><div>Lag at Chkpt</div><div>Time Since Chkpt</div>';
+
+      const rowsHtml = rows.map(function(row) {
+        return '<div class="grid row">' +
+          '<div>' + (row.program || '-') + '</div>' +
+          '<div class="' + rowClass(row.status) + '">' + (row.status || '-') + '</div>' +
+          '<div>' + (row.group || '-') + '</div>' +
+          '<div>' + (row.lag || 'unknown') + '</div>' +
+          '<div>' + (row.time || '-') + '</div>' +
+          '</div>';
+      }).join('');
+
+      table.innerHTML = '';
+      table.appendChild(header);
+      table.insertAdjacentHTML('beforeend', rowsHtml);
+    }
+
+    async function loadInfoAll() {
+      refreshBtn.disabled = true;
+      status.textContent = 'RUNNING';
+
+      try {
+        const response = await fetch('/api/ggsci-info');
+        const payload = await response.json();
+
+        if (!response.ok) {
+          throw new Error(payload.error || 'GGSCI request failed');
+        }
+
+        hostLabel.textContent = payload.output ? 'Remote GoldenGate host / GGSCI' : 'Remote GoldenGate host';
+        renderRows(payload.rows || []);
+        status.textContent = 'READY';
+      } catch (err) {
+        status.textContent = 'ERROR';
+        table.innerHTML = '<div class="empty">' + (err.message || 'Request failed') + '</div>';
+      } finally {
+        refreshBtn.disabled = false;
+      }
+    }
+
+    refreshBtn.addEventListener('click', loadInfoAll);
+    loadInfoAll();
+  </script>
+</body>
+</html>

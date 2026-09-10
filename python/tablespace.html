@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oracle FRA Monitor</title>
+  <style>
+    :root{--ink:#17212b;--muted:#65727d;--line:#dbe2e7;--paper:#f7f8f6;--panel:#fff;--accent:#0b766e;--danger:#a33a32;--warn:#b56817}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:15px/1.5 "Segoe UI",sans-serif}.shell{max-width:1300px;margin:auto;padding:42px clamp(20px,4vw,64px) 64px}header{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px}.kicker{color:var(--accent);font:700 12px/1.2 Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}h1{margin:8px 0 0;font:600 clamp(32px,5vw,62px)/.98 Georgia,serif;letter-spacing:-.04em}.status{color:var(--muted);font:12px Consolas,monospace;text-align:right}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:20px;background:var(--panel);border:1px solid var(--line);padding:20px;box-shadow:0 10px 30px #193b4210}.message{min-height:25px;margin:16px 0 10px;color:var(--muted)}button{border:0;background:var(--accent);color:#fff;padding:12px 20px;min-height:42px;font-weight:700;cursor:pointer}button:hover{background:#07534e}button:disabled{cursor:wait;opacity:.6}.row-button{background:#0f172a;padding:8px 12px;font-size:12px}.row-button:hover{background:#1e293b}.table-wrap{overflow:auto;border:1px solid var(--line);background:var(--panel)}table{width:100%;min-width:1100px;border-collapse:collapse}th,td{padding:13px 16px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{position:sticky;top:0;color:#52616b;background:#e8f0ed;font:700 11px Consolas,monospace;letter-spacing:.06em;text-transform:uppercase}td{font:13px Consolas,monospace}tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#f0f8f6}.ok{color:var(--accent)}.bad{color:var(--danger)}.warn{color:var(--warn)}.empty{padding:48px;color:var(--muted);text-align:center}.cell-action{display:flex;justify-content:flex-start;align-items:center;gap:8px}@media(max-width:700px){header{align-items:start;flex-direction:column}.status{text-align:left}.toolbar{align-items:stretch;flex-direction:column}button{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header><div><div class="kicker">Oracle / FRA monitor</div><h1>FRA monitor</h1></div><div id="status" class="status">READY / WAITING</div></header>
+    <div class="toolbar"><div>Five database targets<br><span class="status">V$RECOVERY_FILE_DEST / ON DEMAND QUERY</span></div><button id="refresh" type="button">REFRESH ALL</button></div>
+    <div id="message" class="message" role="status">The page is ready. Select a database or refresh all to run the query.</div>
+    <div class="table-wrap"><table><thead><tr><th>Database</th><th>Host / service</th><th>Query Time</th><th>Limit GB</th><th>Used GB</th><th>Free GB</th><th>Used %</th><th>Status</th><th>Error</th><th>Action</th></tr></thead><tbody id="body"><tr><td class="empty" colspan="10">No records loaded.</td></tr></tbody></table></div>
+  </main>
+  <script>
+    const refresh = document.querySelector('#refresh');
+    const message = document.querySelector('#message');
+    const status = document.querySelector('#status');
+    const body = document.querySelector('#body');
+    const databaseList = [
+      'DB01 / MIGPROD',
+      'DB02 / DBPRACB 216',
+      'DB03 / DBPRACB 218',
+      'DB04 / DBPRACC',
+      'DB05 / DBPRACD'
+    ];
+    let liveRows = [];
+
+    function createEmptyRows() {
+      return databaseList.map(function(databaseName) {
+        return {
+          database: databaseName,
+          dsn: '',
+          query_time: 'Not run',
+          LIMIT_GB: null,
+          USED_GB: null,
+          FREE_GB: null,
+          USED_PCT: null,
+          status: 'Not run',
+          error: ''
+        };
+      });
+    }
+
+    function mergeRows(rows) {
+      const baseRows = liveRows.length ? liveRows : createEmptyRows();
+      const merged = baseRows.map(function(row) {
+        return Object.assign({}, row);
+      });
+      const lookup = new Map();
+      (rows || []).forEach(function(row) {
+        if (row && row.database) {
+          lookup.set(row.database, row);
+        }
+      });
+
+      merged.forEach(function(row, index) {
+        const refreshed = lookup.get(row.database);
+        if (refreshed) {
+          merged[index] = Object.assign({}, row, refreshed);
+        }
+      });
+
+      liveRows = merged;
+      return merged;
+    }
+
+    function value(item) { return item == null ? '--' : escapeHtml(item); }
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, function(character) {
+        return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[character];
+      });
+    }
+
+    function setTableRows(rows) {
+      if (!rows || rows.length === 0) {
+        body.innerHTML = '<tr><td class="empty" colspan="12">No records loaded.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = rows.map(function(row) {
+        const failed = row.status !== 'Connected';
+        const stateClass = failed ? 'bad' : 'ok';
+        const actionButton = '<button class="row-button" data-db="' + escapeHtml(row.database) + '" type="button">Refresh</button>';
+        return '<tr>' +
+          '<td>' + escapeHtml(row.database) + '</td>' +
+          '<td>' + escapeHtml(row.dsn || 'Not run') + '</td>' +
+          '<td>' + escapeHtml(row.query_time || 'Not run') + '</td>' +
+          '<td>' + value(row.LIMIT_GB) + '</td>' +
+          '<td>' + value(row.USED_GB) + '</td>' +
+          '<td>' + value(row.FREE_GB) + '</td>' +
+          '<td>' + value(row.USED_PCT) + '</td>' +
+          '<td class="' + stateClass + '">' + escapeHtml(row.status || 'Not run') + '</td>' +
+          '<td>' + escapeHtml(row.error || '—') + '</td>' +
+          '<td class="cell-action">' + actionButton + '</td>' +
+          '</tr>';
+      }).join('');
+
+      body.querySelectorAll('.row-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+          loadSingleDatabase(button.dataset.db);
+        });
+      });
+    }
+
+    async function loadSingleDatabase(databaseName) {
+      refresh.disabled = true;
+      message.textContent = 'Running query for ' + databaseName + '...';
+      status.textContent = 'RUNNING / ORACLE';
+      try {
+        const response = await fetch('/api/tablespace?database=' + encodeURIComponent(databaseName));
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error || 'Request failed');
+
+        const merged = mergeRows(payload.rows || []);
+        setTableRows(merged);
+        message.textContent = 'Query complete for ' + databaseName + '. Last run: ' + new Date().toLocaleString();
+        status.textContent = 'COMPLETE / ORACLE';
+      } catch (error) {
+        message.textContent = error.message;
+        status.textContent = 'ERROR / ORACLE';
+      } finally {
+        refresh.disabled = false;
+      }
+    }
+
+    async function loadStorage() {
+      refresh.disabled = true;
+      message.textContent = 'Running query for all Oracle databases...';
+      status.textContent = 'RUNNING / ORACLE';
+      try {
+        const response = await fetch('/api/tablespace');
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.error || 'Request failed');
+
+        const rows = mergeRows(payload.rows || []);
+        setTableRows(rows);
+        const connected = rows.filter(function(row) { return row.status === 'Connected'; }).length;
+        message.textContent = connected + ' of ' + rows.length + ' databases connected. Last checked: ' + new Date().toLocaleString();
+        status.textContent = 'COMPLETE / ORACLE';
+      } catch (error) {
+        message.textContent = error.message;
+        status.textContent = 'ERROR / ORACLE';
+      } finally {
+        refresh.disabled = false;
+      }
+    }
+
+    refresh.addEventListener('click', loadStorage);
+    setTableRows(createEmptyRows());
+  </script>
+</body>
+</html>

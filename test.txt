@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Audio Listener Example</title>
+</head>
+<body>
+  <h2>Say "fwnyxs" (sounds like phoenix)</h2>
+  <button onclick="startListening()">Start Listening</button>
+  <p id="output"></p>
+
+  <script>
+    function startListening() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = 'en-US';   // language setting
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.toLowerCase();
+        document.getElementById('output').innerText = "You said: " + transcript;
+
+        if (transcript.includes("fwnyxs") || transcript.includes("phoenix")) {
+          alert("Keyword detected: fwnyxs (phoenix)");
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Error occurred: ", event.error);
+      };
+    }
+  </script>
+</body>
+</html>

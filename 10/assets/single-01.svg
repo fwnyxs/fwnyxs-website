@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+<rect width="800" height="800" fill="#090909"/>
+<circle cx="250" cy="215" r="210" fill="#252523"/>
+<circle cx="535" cy="560" r="250" fill="#3a3a37"/>
+<path d="M90 650 L700 150" stroke="#c8ff2e" stroke-width="6"/>
+<text x="45" y="65" fill="#ddd" font-family="Arial" font-size="30" font-weight="bold">01</text>
+<text x="45" y="665" fill="#eee" font-family="Arial" font-size="58" font-weight="bold">HATED</text>
+<text x="47" y="715" fill="#c8ff2e" font-family="monospace" font-size="16" letter-spacing="2">OUT NOW</text>
+</svg>
